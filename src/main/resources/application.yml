@@ -1,0 +1,9 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/music?serverTimezone=Asia/Shanghai&userUnicode=true&characterEncoding=utf8&userSSL=false
+    username: root
+    password: 19941226
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
