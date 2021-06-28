@@ -22,6 +22,11 @@ public class ReturnMessage<T> {
         return new ReturnMessage<>(okCode, msg, data);
     }
 
+    public static <T> ReturnMessage<T> ok(String msg) {
+        int okCode = 1;
+        return new ReturnMessage<>(okCode, msg, null);
+    }
+
     public static <T> ReturnMessage<T> error(String msg) {
         int errorCode = 0;
         return new ReturnMessage<>(errorCode, msg, null);
