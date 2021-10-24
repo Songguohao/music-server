@@ -25,7 +25,7 @@ public class SingerController {
     public ReturnMessage addSinger(@RequestBody Singer singer) {
         Boolean flag = singerService.insert(singer);
         if (flag) {
-            return ReturnMessage.ok("新增歌手成功", null);
+            return ReturnMessage.ok("新增歌手成功");
         } else {
             return ReturnMessage.error("新增歌手失败");
         }
@@ -35,19 +35,19 @@ public class SingerController {
     public ReturnMessage updateSinger(@RequestBody Singer singer) {
         Boolean flag = singerService.update(singer);
         if (flag) {
-            return ReturnMessage.ok("编辑歌手成功", null);
+            return ReturnMessage.ok("编辑歌手成功");
         } else {
             return ReturnMessage.error("编辑歌手失败");
         }
     }
 
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
     public ReturnMessage deleteSinger(@RequestParam Integer id) {
         Boolean flag = singerService.delete(id);
         if (flag) {
-            return ReturnMessage.ok("编辑歌手成功", null);
+            return ReturnMessage.ok("删除歌手成功");
         } else {
-            return ReturnMessage.error("编辑歌手失败");
+            return ReturnMessage.error("删除歌手失败");
         }
     }
 

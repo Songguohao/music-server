@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sou.music.dao.ConsumerDao">
+     <resultMap id="BaseResultMap" type="com.sou.music.domain.Consumer">
+         <id column="id" property="id" jdbcType="INTEGER" />
+         <result column="username" property="username" jdbcType="VARCHAR" />
+         <result column="password" property="password" jdbcType="VARCHAR" />
+         <result column="sex" property="sex" jdbcType="TINYINT" />
+         <result column="phone_num" property="phoneNumer" jdbcType="VARCHAR" />
+         <result column="email" property="email" jdbcType="VARCHAR" />
+         <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+         <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+         <result column="location" property="location" jdbcType="VARCHAR" />
+         <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+     </resultMap>
+    <sql id="Base_Column_List" >
+        id, username, password, sex, phone_num, email, avatar, birth, location, introduction, create_time, update_time
+    </sql>
+
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select count(*) from consumer where username = #{username} and password = #{password}
+    </select>
+    
+    <select id="getByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from consumer
+        where username = #{username}
+    </select>
+</mapper>

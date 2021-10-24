@@ -41,7 +41,7 @@ public class SingerServiceImpl implements SingerService {
 
     @Override
     public List<Singer> singerOfName(String name) {
-        return singerDao.singerOfName(name);
+        return singerDao.singerOfName("%" + name + "%");
     }
 
     @Override

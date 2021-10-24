@@ -2,6 +2,7 @@ package com.sou.music.dao;
 
 import com.sou.music.domain.Singer;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public interface SingerDao {
     /**
      * 根据歌手的名字模糊查询列表
      */
-    List<Singer> singerOfName(String name);
+    List<Singer> singerOfName(@Param("name") String name);
 
     /**
      * 根据歌手的名性别查询列表
