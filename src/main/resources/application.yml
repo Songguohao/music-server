@@ -1,5 +1,6 @@
 server:
   port: 8888
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/music?serverTimezone=Asia/Shanghai&userUnicode=true&characterEncoding=utf8&userSSL=false
@@ -14,5 +15,7 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sou.music.domain
-
+logging:
+  level:
+    com.sou.music.dao: debug
 

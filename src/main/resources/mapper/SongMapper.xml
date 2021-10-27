@@ -61,7 +61,7 @@
 
     <select id="songVOOfSingerName" resultMap="ResultMap" parameterType="java.lang.String">
         select
-        song.id,song.singer_id,singer.name as singer_name,song.name,song.introduction,song.create_time,song.update_time,song.img,song.url
+        song.id,song.singer_id,singer.name as singer_name,song.name,song.introduction,song.create_time,song.update_time,song.img,song.url,song.lyric
         from song LEFT JOIN singer on song.singer_id = singer.id
         where singer.name like #{name}
     </select>
