@@ -8,7 +8,7 @@
          <result column="username" property="username" jdbcType="VARCHAR" />
          <result column="password" property="password" jdbcType="VARCHAR" />
          <result column="sex" property="sex" jdbcType="TINYINT" />
-         <result column="phone_num" property="phoneNumer" jdbcType="VARCHAR" />
+         <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
          <result column="email" property="email" jdbcType="VARCHAR" />
          <result column="avatar" property="avatar" jdbcType="VARCHAR" />
          <result column="birth" property="birth" jdbcType="TIMESTAMP" />

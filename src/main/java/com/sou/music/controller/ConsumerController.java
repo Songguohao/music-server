@@ -27,6 +27,9 @@ public class ConsumerController {
         sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         consumer.setCreateTime(sdf.parse(sdf.format(date)));
+        if(consumerService.getByUsername(consumer.getUsername()) != null) {
+            return ReturnMessage.error("用户名已经存在");
+        }
         Boolean flag = consumerService.insert(consumer);
         if (flag) {
             return ReturnMessage.ok("新增用户成功");
@@ -73,8 +76,8 @@ public class ConsumerController {
 
 
     @PostMapping("/updateAvatar")
-    public ReturnMessage updateAvatar(@RequestPart("file")MultipartFile file, @RequestParam("id")int id) {
-        if(file.isEmpty()) {
+    public ReturnMessage updateAvatar(@RequestPart("file") MultipartFile file, @RequestParam("id") int id) {
+        if (file.isEmpty()) {
             return ReturnMessage.error("图片上传失败");
         }
         // 文件名：当前时间到毫秒 + 原来的文件名
@@ -82,7 +85,7 @@ public class ConsumerController {
         String filePath = System.getProperty("user.dir") + System.getProperty("file.separator")
                 + "img" + System.getProperty("file.separator") + "avatar";
         File newFile = new File(filePath);
-        if(!newFile.exists()){
+        if (!newFile.exists()) {
             newFile.mkdir();
         }
 
@@ -96,7 +99,7 @@ public class ConsumerController {
             consumer.setId(id);
             consumer.setAvatar(storeImgPath);
             boolean flag = consumerService.update(consumer);
-            if(flag) {
+            if (flag) {
                 return ReturnMessage.ok("图片上传成功!");
             } else {
                 return ReturnMessage.error("图片上传失败");
@@ -105,6 +108,15 @@ public class ConsumerController {
             e.printStackTrace();
             return ReturnMessage.error("图片上传失败");
         }
+    }
 
+    @RequestMapping("/login")
+    public ReturnMessage login(@RequestBody Consumer consumer) {
+        boolean flag = consumerService.verifyPassword(consumer.getUsername(), consumer.getPassword());
+        if (flag) {
+            return ReturnMessage.ok("登陆成功！", consumerService.getByUsername(consumer.getUsername()));
+        } else {
+            return ReturnMessage.error("用户名或密码错误！");
+        }
     }
 }
