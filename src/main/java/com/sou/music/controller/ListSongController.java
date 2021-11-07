@@ -2,11 +2,13 @@ package com.sou.music.controller;
 
 import com.sou.music.domain.ListSong;
 import com.sou.music.domain.ReturnMessage;
-import com.sou.music.domain.Song;
+import com.sou.music.domain.SongVO;
 import com.sou.music.service.ListSongService;
+import com.sou.music.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,6 +17,9 @@ public class ListSongController {
 
     @Autowired
     private ListSongService listSongService;
+
+    @Autowired
+    private SongService songService;
 
     @PostMapping(value = "/add")
     public ReturnMessage addListSong(@RequestBody ListSong listSong) {
@@ -37,7 +42,7 @@ public class ListSongController {
     }
 
     @GetMapping("/delete")
-    public ReturnMessage deleteListSong(Integer id) {
+    public ReturnMessage deleteListSong(@RequestParam Integer id) {
         Boolean flag = listSongService.delete(id);
         if (flag) {
             return ReturnMessage.ok("删除歌曲成功");
@@ -47,9 +52,14 @@ public class ListSongController {
     }
 
     @GetMapping("/detail")
-    public ReturnMessage detail(Integer songListId) {
+    public ReturnMessage detail(@RequestParam Integer songListId) {
         List<ListSong> listSongs = listSongService.listSongOfSongList(songListId);
-        return ReturnMessage.ok("查询歌曲成功", listSongs);
+        List<SongVO> songs = new ArrayList<>();
+        for(ListSong listSong: listSongs) {
+            SongVO songVO = songService.songVOOfId(listSong.getSongId());
+            songs.add(songVO);
+        }
+        return ReturnMessage.ok("查询歌曲成功", songs);
 
     }
 }
